@@ -1,1 +1,99 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The World, But Hidden</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Georgia, serif;
+      background: #07110d;
+      color: #f4efe2;
+      text-align: center;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    .globe {
+      font-size: 90px;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: 55px;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    .tagline {
+      font-size: 20px;
+      color: #c9c1ad;
+      margin: 20px 0 40px;
+      font-family: Arial, sans-serif;
+    }
+
+    button {
+      background: transparent;
+      color: #f4efe2;
+      border: 1px solid #a99b78;
+      padding: 15px 30px;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+
+    button:hover {
+      background: #a99b78;
+      color: #07110d;
+    }
+
+    .small {
+      margin-top: 50px;
+      font-size: 13px;
+      color: #777d75;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+
+    <div class="globe">🌍</div>
+
+    <h1>The World, But Hidden</h1>
+
+    <p class="tagline">
+      There is more to every place than you know.
+    </p>
+
+    <button onclick="explore()">
+      EXPLORE THE UNKNOWN
+    </button>
+
+    <p class="small">
+      History • Nature • Science • Culture
+    </p>
+
+  </section>
+
+  <script>
+    function explore() {
+      alert("Your journey is about to begin... 🌍");
+    }
+  </script>
+
+</body>
+</html>
