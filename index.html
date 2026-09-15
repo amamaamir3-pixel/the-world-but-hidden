@@ -921,7 +921,12 @@
   </div>
 
 </section>
-    <div class="world-map">
+  <div class="world-map" id="worldMap">
+  <div class="map-loading">
+    LOADING THE WORLD...
+  </div>
+  </div>
+  <div class="country-preview" id="countryPreview">
 
     <button class="country" data-country="Pakistan">Pakistan</button>
     <button class="country" data-country="India">India</button>
@@ -1008,10 +1013,6 @@
 
     }
 
-  </script>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
   const map = L.map("worldMap", {
     center: [20, 0],
@@ -1028,7 +1029,49 @@
     }
   ).addTo(map);
 
-  document.querySelector(".map-loading")?.remove();
-    </script>
+  fetch("https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson")
+    .then(response => response.json())
+    .then(data => {
+
+      L.geoJSON(data, {
+        style: {
+          weight: 1,
+          fillOpacity: 0.15
+        },
+
+        onEachFeature: function(feature, layer) {
+
+          const countryName =
+            feature.properties.ADMIN ||
+            feature.properties.name ||
+            "Unknown country";
+
+          layer.bindTooltip(countryName);
+
+          layer.on("click", function() {
+
+            const preview = document.getElementById("countryPreview");
+
+            if (preview) {
+              preview.innerHTML = `
+                <span>COUNTRY SELECTED</span>
+                <h3>${countryName}</h3>
+                <p>Discover the hidden places, wildlife, plants, history, culture and science of ${countryName}.</p>
+              `;
+            }
+
+          });
+
+        }
+
+      }).addTo(map);
+
+      document.querySelector(".map-loading")?.remove();
+
+    })
+    .catch(error => {
+      console.error("Map data failed:", error);
+    });
+</script>
 </body>
 </html>
