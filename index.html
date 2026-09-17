@@ -670,10 +670,35 @@
   href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
 <style>
+  .atlas-button {
+    margin-top: 25px;
+    padding: 14px 22px;
+    background: transparent;
+    color: #eeeae0;
+    border: 1px solid rgba(255,255,255,0.25);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  .atlas-button:hover {
+    background: #eeeae0;
+    color: #0c0d0b;
+  }
+
+  .atlas-map-panel {
+    display: none;
+    margin-top: 45px;
+  }
+
+  .atlas-map-panel.active {
+    display: block;
+  }
+
   #worldMap {
     width: 100%;
     height: 650px;
-    margin-top: 50px;
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 4px;
     overflow: hidden;
@@ -685,18 +710,9 @@
     height: 100%;
   }
 
-  .map-loading {
-    padding: 30px;
-    text-align: center;
-    color: #eeeae0;
-    letter-spacing: 0.12em;
-    font-size: 12px;
-  }
-
   @media (max-width: 700px) {
     #worldMap {
       height: 500px;
-      margin-top: 30px;
     }
   }
 </style>
@@ -911,27 +927,33 @@
 
 
   <!-- ATLAS -->
-<section class="atlas" id="atlas">
+<div class="section-label">
+  03 — THE ATLAS
+</div>
 
-  <div class="section-label">
-    03 — THE ATLAS
-  </div>
+<h2 class="section-title">
+  Choose a country.
+</h2>
 
-  <h2 class="section-title">
-    Choose a country.
-  </h2>
+<p class="atlas-description">
+  Start anywhere. Every country has something waiting to be discovered.
+</p>
 
-  <p class="atlas-description">
-    Start anywhere. Every country has something waiting to be discovered.
-  </p>
+<button id="openAtlas" class="atlas-button">
+  OPEN THE ATLAS →
+</button>
 
+<div id="atlasMapPanel" class="atlas-map-panel">
 
+  <div id="worldMap"></div>
 
-  <div class="country-preview" id="countryPreview">
-    <span>SELECT A COUNTRY</span>
-    <h3>Your next discovery is waiting.</h3>
-    <p>Choose a country from the atlas to begin exploring.</p>
-  </div>
+</div>
+
+<div class="country-preview" id="countryPreview">
+  <span>SELECT A COUNTRY</span>
+  <h3>Your next discovery is waiting.</h3>
+  <p>Choose a country from the map to begin exploring.</p>
+</div>
 
 </section>
   <div class="world-map" id="worldMap">
@@ -1084,6 +1106,16 @@
 window.addEventListener("load", function () {
 
   const map = L.map("worldMap", {
+    const openAtlas = document.getElementById("openAtlas");
+const atlasPanel = document.getElementById("atlasMapPanel");
+
+openAtlas.addEventListener("click", function () {
+  atlasPanel.classList.add("active");
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 100);
+});
   center: [20, 0],
   zoom: 2,
   minZoom: 2,
